@@ -167,6 +167,8 @@ initialize().then(() => {
 
   });
 
+  app.get("*");
+
   app.get('/PaniniTest', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
   });
