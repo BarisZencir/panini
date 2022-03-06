@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <img id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+  <style>
+    body {
+      background-color: #F0F0F0;
+      padding: 2em;
+      font-family: 'Raleway', 'Source Sans Pro', 'Arial';
+    }
+
+    .container {
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input {
+      padding: 10px;
+      width: 50%;
+      margin-bottom: 1em;
+    }
+
+    button {
+      margin: 2em 0;
+      padding: 1em 4em;
+      display: block;
+    }
+
+    #loader {
+      width: 100px;
+      display: none;
+    }
+
+    #instructor {
+      padding: 1em;
+      background-color: #fff;
+      margin: 1em 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h2>Animal Card List</h2>
+    <table class="table table-responsive table-hover table-bordered" id="list_animal_table_json" cellpadding="2">
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Name</th>
+          <th>HP</th>
+          <th>AP</th>
+          <th>DEFF</th>
+          <th>SPEED</th>
+          <th>WEIGHT</th>
+          <th>LIFESPAN</th>
+          <th>PASSIVES</th>
+          <th>REGION</th>
+        </tr>
+      </thead>
+    </table>
+
+
+    <h2>Region Buffs</h2>
+    <table class="table table-responsive table-hover table-bordered" id="list_region_table_json" cellpadding="4">
+      <thead>
+        <tr>
+          <th>REGION</th>
+          <th>+2 Card Buff</th>
+          <th>+3 Card Buff</th>
+          <th>+4 Card Buff</th>
+        </tr>
+      </thead>
+    </table>
+
+
+    <h2>Start Game</h2>
+    *not: Kontroller yapilmadi, lutfen degerleri 0-24 arasi(Tablodaki index degeri.) giriniz.
+
+    <h2>Herd 1</h2>
+
+    <label for="h1-card1" class="col-lg-2 control-label">Card-1:</label>
+    <input id="h1-card1" type="text">
+    <label for="h1-card2" class="col-lg-2 control-label">Card-2:</label>
+    <input id="h1-card2" type="text">
+    <label for="h1-card3" class="col-lg-2 control-label">Card-3:</label>
+    <input id="h1-card3" type="text">
+    <label for="h1-card4" class="col-lg-2 control-label">Card-4:</label>
+    <input id="h1-card4" type="text">
+
+    <h2>Herd 2</h2>
+
+    <label for="h2-card1" class="col-lg-2 control-label">Card-1:</label>
+    <input id="h2-card1" type="text">
+    <label for="h2-card2" class="col-lg-2 control-label">Card-2:</label>
+    <input id="h2-card2" type="text">
+    <label for="h2-card3" class="col-lg-2 control-label">Card-3:</label>
+    <input id="h2-card3" type="text">
+    <label for="h2-card4" class="col-lg-2 control-label">Card-4:</label>
+    <input id="h2-card4" type="text">
+
+    <button id="button">Start Game</button>
+
+  </div>
+
+  <div id="game-result">
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <script type="text/javascript">
+    var count = 0;
+    $(document).ready(function () {
+      $.ajax({
+        url: "https://paninigameenginetest.herokuapp.com/api/animals",
+        //url: "http://localhost:3000/api/animals",
+        dataType: 'json',
+        type: 'get',
+        cache: false,
+        success: function (data) {
+          //console.log(data);
+          var event_data = '';
+          $.each(data.animals, function (index, value) {
+            //console.log(value);
+            event_data += '<tr>';
+            event_data += '<td>' + (index) + '</td>';
+            event_data += '<td>' + value.name + '</td>';
+            event_data += '<td>' + value.hp + '</td>';
+            event_data += '<td>' + value.ap + '</td>';
+            event_data += '<td>' + value.deff + '</td>';
+            event_data += '<td>' + value.speed + '</td>';
+            event_data += '<td>' + value.weight + '</td>';
+            event_data += '<td>' + value.lifespan + '</td>';
+            event_data += '<td>' + value.passives + '</td>';
+            event_data += '<td>' + value.region + '</td>';
+            event_data += '</tr>';
+          });
+          $("#list_animal_table_json").append(event_data);
+        },
+        error: function () {
+          console.log("404. Please wait until the File is Loaded.");
+        }
+      });
+
+      $.ajax({
+        url: "https://paninigameenginetest.herokuapp.com/api/regionBuffs",
+        //url: "http://localhost:3000/api/regionBuffs",
+        dataType: 'json',
+        type: 'get',
+        cache: false,
+        success: function (data) {
+          //console.log(data);
+          var event_data = '';
+          $.each(data.regionBuffs, function (index, value) {
+            //console.log(value);
+            event_data += '<tr>';
+            event_data += '<td>' + value.name + '</td>';
+            event_data += '<td>' + value.buffs[0] + '</td>';
+            event_data += '<td>' + value.buffs[1] + '</td>';
+            event_data += '<td>' + value.buffs[2] + '</td>';
+            event_data += '</tr>';
+          });
+          $("#list_region_table_json").append(event_data);
+        },
+        error: function () {
+          console.log("404. Please wait until the File is Loaded.");
+        }
+      });
+
+    });
+
+    $("#button").click(function (e) {
+      e.preventDefault();
+      $.post("https://paninigameenginetest.herokuapp.com/api/calculateGame",
+        //$.post("http://localhost:3000/api/calculateGame",
+        // {
+        //   herd1: [0, 12, 19, 2],
+        //   herd2: [14, 4, 10, 18]
+        // },
+        {
+          herd1: [$("#h1-card1").val(), $("#h1-card2").val(), $("#h1-card3").val(), $("#h1-card4").val()],
+          herd2: [$("#h2-card1").val(), $("#h2-card2").val(), $("#h2-card3").val(), $("#h2-card4").val()]
+        },
+        function (data) {
+          var event_data = "<h2>GAME RESULT</h2>";
+          var consolelog = function (text) {
+            event_data += '<p>' + text + '</p>';
+          }
+
+          for (var i = 0; i < data.length; i++) {
+            var gameState = data[i];
+            consolelog('################################################');
+            consolelog('--------------------------------');
+            consolelog('turn : ' + (gameState.turn + 1));
+            consolelog('--------------------------------');
+            consolelog('player-1 : Defender('
+              + gameState.player1State.defenderIndex
+              + ') hp: ' + gameState.player1State.defenderHp
+              + ' damage: ' + gameState.player1State.damage);
+            consolelog('player-2 : Defender('
+              + gameState.player2State.defenderIndex
+              + ') hp: ' + gameState.player2State.defenderHp
+              + ' damage: ' + gameState.player2State.damage);
+            consolelog('--------------------------------');
+            consolelog('Events:');
+            consolelog('--------------------------------');
+            var events = gameState.events;
+            for (var j = 0; j < events.length; j++) {
+              var event = events[j];
+              consolelog('  ' + event.type + ' >> ' + event.message);
+            }
+            consolelog('--------------------------------');
+          }
+          count++;
+          if (count == 20) {
+            consolelog("20 defa denediniz ama hala kazanamadiniz mi? Hehe Baris zencir :)");
+          }
+
+          $("#game-result").html(event_data);
+        });
+    })
+
+
+  </script>
+
+</body>
+
+</html>

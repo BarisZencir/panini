@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Metamask Client Test</title>
+    <link rel="shortcut icon" href="https://9gag.com/favicon.ico" />
+</head>g
+<style>
+    input {
+        display: block;
+        margin-bottom: 12px;
+    }
+</style>
+
+<body>
+    <h1>Metamask Client Test</h1>
+
+    <button onclick="checkMetamask()">checkMetamask</button>
+    </br>
+    <button onclick="checkPermissionToAccessAccounts()">check PermissionToAccessAccounts</button>
+    </br>
+    <button onclick="checkConnection()">CheckConnection</button>
+    </br>
+    
+    </br>
+        <button onclick="getSelectedChainId()">getSelectedChainId</button>
+    </br>
+        <button onclick="getSelectedAddress()">getSelectedAddress</button>
+    </br>
+
+
+    </br>
+    <button onclick="enablePermissionToAccessAccounts()">enablePermissionToAccessAccounts</button>
+    </br>
+    <button onclick="buyPackage()">buyPackage</button>
+    </br>
+    <button onclick="createAuction()">createAuction</button>
+    </br>
+    <button onclick="cancelAuction()">cancelAuction</button>
+    </br>
+    <button onclick="bid()">bid</button>
+    </br>
+    <button onclick="store()">store</button>
+    <button onclick="retrieve()">retrieve</button>
+    </br>
+
+    <script src="./metamaskContractAdaptor.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
