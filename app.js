@@ -173,6 +173,9 @@ initialize().then(() => {
     res.sendFile(path.join(__dirname + '/index.html'));
   });
 
+  app.get('/bundle', function (req, res) {
+    res.sendFile(path.join(__dirname + '/metamask/bundle.js'));
+  });
   app.get('/metamaskTest', function (req, res) {
     res.sendFile(path.join(__dirname + '/metamask/index.html'));
   });
