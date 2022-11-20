@@ -180,6 +180,54 @@ initialize().then(() => {
     res.sendFile(path.join(__dirname + '/metamask/index.html'));
   });
 
+  app.get('/metadata/:tokenId', function (req, res) {
+    return res.send({
+      name: "name" + req.params.tokenId,
+      description: "description" + req.params.tokenId,
+      attributes: [
+        {
+          "trait_type": "Base", 
+          "value": "Starfish"
+        }, 
+        {
+          "trait_type": "Eyes", 
+          "value": "Big"
+        }, 
+        {
+          "trait_type": "Mouth", 
+          "value": "Surprised"
+        }, 
+        {
+          "trait_type": "Level", 
+          "value": 5
+        }, 
+        {
+          "trait_type": "Stamina", 
+          "value": 1.4
+        }, 
+        {
+          "trait_type": "Personality", 
+          "value": "Sad"
+        }, 
+        {
+          "display_type": "boost_number", 
+          "trait_type": "Aqua Power", 
+          "value": 40
+        }, 
+        {
+          "display_type": "boost_percentage", 
+          "trait_type": "Stamina Increase", 
+          "value": 10
+        }, 
+        {
+          "display_type": "number", 
+          "trait_type": "Generation", 
+          "value": 2
+        }
+      ],
+  });
+  });
+
   app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 }).catch((error) => {
