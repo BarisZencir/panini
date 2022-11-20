@@ -184,6 +184,7 @@ initialize().then(() => {
     return res.send({
       name: "name" + req.params.tokenId,
       description: "description" + req.params.tokenId,
+      image: "https://storage.googleapis.com/opensea-prod.appspot.com/puffs/3.png",
       attributes: [
         {
           "trait_type": "Base", 
